@@ -14,7 +14,8 @@ PB[number_of_instance]=name:port
 #### generate docker compose
 
 ```
-$ ./generate-compose.sh
+$ chmod +x ./generate.sh
+$ ./generate.sh
 ```
 
 #### start docker
@@ -23,8 +24,20 @@ $ ./generate-compose.sh
 $ docker-compose up --build
 ```
 
+#### access pocketbase
+
+```
+ip_vps/onlinestore/
+ip_vps/bootstore/
+```
+
+**or**
+
+```
+domain.com/onlinestore/
+domain.com/bootstore/
+```
+
 ## Todo
 
-- caddy
-- auto subdomain
-- auto ssl
+- not yet

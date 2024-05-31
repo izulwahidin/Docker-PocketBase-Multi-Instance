@@ -1,2 +1,4 @@
 .env
 docker-compose.yml
+/pocketbase/*
+/caddy/*
