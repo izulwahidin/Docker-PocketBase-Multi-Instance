@@ -56,7 +56,6 @@ compose_file+="
 
 volumes:
   caddy_data:
-    external: true
   caddy_config:
 "
 
