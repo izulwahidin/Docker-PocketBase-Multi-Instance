@@ -10,6 +10,9 @@ services:
 
 # Initialize Caddyfile content
 caddy_file=":80 {
+  log {
+      level DEBUG
+  }
 "
 
 # Loop through the environment variables
@@ -28,13 +31,13 @@ for var in $(compgen -A variable | grep ^PB); do
       - \"${pb_port}:${pb_port}\"
     restart: always
     volumes:
-      - \$PWD/pocketbase/${pb_name}:/pocketbase/${pb_name}
+      - ./pocketbase/${pb_name}:/pocketbase/${pb_name}
+    networks:
+      - pbmi_net
 "
 
   # Add reverse proxy rule to Caddyfile
-  caddy_file+="    handle /${pb_name}* {
-        reverse_proxy localhost:${pb_port}
-    }
+  caddy_file+="  reverse_proxy /${pb_name}* :${pb_port}
 "
 done
 
@@ -50,29 +53,34 @@ compose_file+="
       - \"443:443\"
       - \"443:443/udp\"
     volumes:
-      - \$PWD/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/Caddyfile.conf:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
+    networks:
+      - pbmi_net
 
 volumes:
   caddy_data:
   caddy_config:
+
+networks:
+  pbmi_net:
 "
 
 # Finalize Caddyfile content
 caddy_file+="
-    handle {
-        respond \"Hello, PocketBase Multi Instance!\"
-    }
+  route / {
+      respond \"Hello, World!\" 200
+  }
 
-    handle_errors {
-        respond \"Oops! Something went wrong.\" 500
-    }
+  handle_errors {
+    respond \"Fuck!\" 500
+  }
 }
 "
 
 # Write the generated content to the respective files
 echo "$compose_file" > ./docker-compose.yml
-echo "$caddy_file" > ./caddy/Caddyfile
+echo "$caddy_file" > ./caddy/Caddyfile.conf
 
 echo "docker-compose.yml and Caddyfile have been generated."
