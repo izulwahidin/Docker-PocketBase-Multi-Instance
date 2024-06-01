@@ -10,9 +10,6 @@ services:
 
 # Initialize Caddyfile content
 caddy_file=":80 {
-  log {
-      level DEBUG
-  }
 "
 
 # Loop through the environment variables
@@ -27,8 +24,8 @@ for var in $(compgen -A variable | grep ^PB); do
     environment:
       - DATA_DIR=/pocketbase/${pb_name}
       - HTTP_PORT=${pb_port}
-    ports:
-      - \"${pb_port}:${pb_port}\"
+    # ports:
+    #   - \"${pb_port}:${pb_port}\"
     restart: always
     volumes:
       - ./pocketbase/${pb_name}:/pocketbase/${pb_name}
@@ -37,7 +34,10 @@ for var in $(compgen -A variable | grep ^PB); do
 "
 
   # Add reverse proxy rule to Caddyfile
-  caddy_file+="  reverse_proxy /${pb_name}* :${pb_port}
+  caddy_file+="  handle_path /${pb_name}* {
+    reverse_proxy ${pb_name}:${pb_port}
+  }
+
 "
 done
 
@@ -68,14 +68,11 @@ networks:
 "
 
 # Finalize Caddyfile content
-caddy_file+="
-  route / {
-      respond \"Hello, World!\" 200
+caddy_file+="  route / {
+      respond \"Hello, PocketBase Multi Instance !\" 200
   }
 
-  handle_errors {
-    respond \"Fuck!\" 500
-  }
+  file_server
 }
 "
 
