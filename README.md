@@ -11,7 +11,7 @@ Easy setup for PocketBase Multi Instance
 PB[number_of_instance]="name:port"
 ```
 
-#### generate docker compose
+#### generate docker compose and Caddyfile
 
 ```
 $ chmod +x ./generate.sh
