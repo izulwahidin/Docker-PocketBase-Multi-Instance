@@ -8,7 +8,7 @@ Easy setup for PocketBase Multi Instance
 - rename **.env.example** to **.env**, and add/change PocketBase Instances
 
 ```
-PB[number_of_instance]=name:port
+PB[number_of_instance]="name:port"
 ```
 
 #### generate docker compose
