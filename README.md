@@ -8,7 +8,7 @@ Easy setup for PocketBase Multi Instance
 1. **Clone this repository**
 
     ```bash
-    git clone https://github.com/izulwahidin/Docker-PocketBase-Multi-Instance.git
+    git clone git@github.com:izulwahidin/Docker-PocketBase-Multi-Instance.git
     cd Docker-PocketBase-Multi-Instance
     ```
 
