@@ -1,43 +1,50 @@
+
 # Docker PocketBase Multi Instance
 
 Easy setup for PocketBase Multi Instance
 
-## setup
+## Setup
 
-- clone this repository
-- rename **.env.example** to **.env**, and add/change PocketBase Instances
+1. **Clone this repository**
 
-```
-PB[number_of_instance]="name:port"
-```
+    ```bash
+    git clone https://github.com/izulwahidin/Docker-PocketBase-Multi-Instance.git
+    cd Docker-PocketBase-Multi-Instance
+    ```
 
-#### generate docker compose and Caddyfile
+2. **Configure your environment**
 
-```
-$ chmod +x ./generate.sh
-$ ./generate.sh
-```
+    Copy and rename the **.env.example** file to **.env**, then customize it according to your preferences.
 
-#### start docker
+    ```bash
+    cp .env.example .env
+    ```
 
-```
-$ docker-compose up --build
-```
+## Run Services
 
-#### access pocketbase
+To start the services, run the following command:
 
-```
-ip_vps/onlinestore/
-ip_vps/bootstore/
+```bash
+./run.sh
 ```
 
-**or**
+## Access PocketBase
+
+Once the services are running, you can access PocketBase instances at:
 
 ```
-domain.com/onlinestore/
-domain.com/bootstore/
+http://<ip_vps>/onlinestore/
+http://<ip_vps>/bootstore/
+```
+
+Or using a domain:
+
+```
+http://<domain.com>/onlinestore/
+http://<domain.com>/bootstore/
 ```
 
 ## Todo
-
-- not yet
+```
+- Not yet
+```
